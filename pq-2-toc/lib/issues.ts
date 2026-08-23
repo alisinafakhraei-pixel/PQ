@@ -35,6 +35,13 @@ const rawIssues: Omit<Issue, "slug">[] = [
     summary:
       "A field-type picker to add a new field right from Advanced Logic, with a toggle to compare placing the button at the top vs. after each question.",
   },
+  {
+    id: "PQ-7",
+    number: 7,
+    title: "Add form fields to the answer piping dropdown in email templates",
+    summary:
+      "A \"Connect your forms\" section in the @ answer-piping menu lets you pick another form, then pick one of its fields, instead of typing a field ID by hand.",
+  },
 ]
 
 export const issues: Issue[] = rawIssues.map((issue) => ({
