@@ -42,6 +42,20 @@ const rawIssues: Omit<Issue, "slug">[] = [
     summary:
       "A \"Connect your forms\" section in the @ answer-piping menu lets you pick another form, then pick one of its fields, instead of typing a field ID by hand.",
   },
+  {
+    id: "PQ-13",
+    number: 13,
+    title: "Add a full formula editor for calculated fields",
+    summary:
+      "An expandable formula editor with math operator buttons, @ mentions to reference fields, and real-time validation, opened from the compact Default Formula input.",
+  },
+  {
+    id: "PQ-15",
+    number: 15,
+    title: "Optimized mobile dropdowns",
+    summary:
+      "Dropdowns open in a mobile-friendly bottom sheet, showing the search input only when the option list is long enough to need it.",
+  },
 ]
 
 export const issues: Issue[] = rawIssues.map((issue) => ({
