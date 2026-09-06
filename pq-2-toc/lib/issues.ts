@@ -4,6 +4,8 @@ export interface Issue {
   title: string
   slug: string
   summary: string
+  /** Which "Week" page this prototype is grouped under on the home page. */
+  week: number
 }
 
 function slugify(title: string) {
@@ -17,6 +19,7 @@ const rawIssues: Omit<Issue, "slug">[] = [
   {
     id: "PQ-1",
     number: 1,
+    week: 1,
     title: "Add \"Magic ID\" generation button to bulk-assign IDs to manually created fields",
     summary:
       "A Magic ID button in the AI menu scans a form and auto-generates IDs for every field that doesn't already have one.",
@@ -24,6 +27,7 @@ const rawIssues: Omit<Issue, "slug">[] = [
   {
     id: "PQ-2",
     number: 2,
+    week: 1,
     title: "Add table of contents sidebar to one-question-at-a-time and paginated forms",
     summary:
       "A Notion-style outline sidebar that lists every question or page and lets respondents jump straight to it, instead of stepping through one at a time.",
@@ -31,6 +35,7 @@ const rawIssues: Omit<Issue, "slug">[] = [
   {
     id: "PQ-6",
     number: 6,
+    week: 1,
     title: "Add \"Add field\" button directly in the logic page",
     summary:
       "A field-type picker to add a new field right from Advanced Logic, with a toggle to compare placing the button at the top vs. after each question.",
@@ -38,6 +43,7 @@ const rawIssues: Omit<Issue, "slug">[] = [
   {
     id: "PQ-7",
     number: 7,
+    week: 1,
     title: "Add form fields to the answer piping dropdown in email templates",
     summary:
       "A \"Connect your forms\" section in the @ answer-piping menu lets you pick another form, then pick one of its fields, instead of typing a field ID by hand.",
@@ -45,6 +51,7 @@ const rawIssues: Omit<Issue, "slug">[] = [
   {
     id: "PQ-13",
     number: 13,
+    week: 1,
     title: "Add a full formula editor for calculated fields",
     summary:
       "An expandable formula editor with math operator buttons, @ mentions to reference fields, and real-time validation, opened from the compact Default Formula input.",
@@ -52,9 +59,42 @@ const rawIssues: Omit<Issue, "slug">[] = [
   {
     id: "PQ-15",
     number: 15,
+    week: 1,
     title: "Optimized mobile dropdowns",
     summary:
       "Dropdowns open in a mobile-friendly bottom sheet, showing the search input only when the option list is long enough to need it.",
+  },
+  {
+    id: "PQ-37",
+    number: 37,
+    week: 2,
+    title: "Collapse onboarding to one page with just name and workspace title",
+    summary:
+      "Collapses the 4-screen onboarding (name → workspace → subdomain → use-case) into one screen, removing the steps that were losing 28% of new users before they reached the product.",
+  },
+  {
+    id: "PQ-39",
+    number: 39,
+    week: 2,
+    title: "Skip menu and modal, land first project directly in the form editor",
+    summary:
+      "For a user's very first project, \"+ New\" skips the 9-type menu and Project setup modal entirely and lands them straight in the Form Editor.",
+  },
+  {
+    id: "PQ-40",
+    number: 40,
+    week: 2,
+    title: "Land all newly created forms in the form editor, not the project or responses view",
+    summary:
+      "Every newly created form — any project number, manual or AI-generated — redirects to the Form Editor instead of a \"No responses found\" dead end.",
+  },
+  {
+    id: "PQ-41",
+    number: 41,
+    week: 2,
+    title: "Add Save and Share tooltips to the form editor",
+    summary:
+      "Two dismissible tooltips, shown only the first time a user opens the editor, calling out the Save and Share actions that actually get a form published.",
   },
 ]
 

@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import Link from "next/link"
-import { ArrowLeft, ChevronDown } from "lucide-react"
+import { ChevronDown } from "lucide-react"
+import { BackButton } from "@/components/shared/back-button"
 import { DropdownBottomSheet } from "./dropdown-bottom-sheet"
 import { dropdownFields } from "@/lib/mobile-dropdown-data"
 import { cn } from "@/lib/utils"
@@ -16,12 +16,7 @@ export function MobileFormDemo() {
   return (
     <div className="flex h-svh flex-col items-center bg-secondary/30">
       <div className="flex w-full items-center border-b border-border bg-background px-4 py-2.5">
-        <Link
-          href="/"
-          className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <ArrowLeft className="h-4 w-4" /> Back
-        </Link>
+        <BackButton fallbackHref="/week-1" />
         <span className="mx-auto text-xs font-medium text-muted-foreground">
           Simulated mobile viewport — tap a dropdown
         </span>

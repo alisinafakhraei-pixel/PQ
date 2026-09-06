@@ -1,8 +1,8 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import Link from "next/link"
-import { ArrowLeft, ChevronLeft } from "lucide-react"
+import { ChevronLeft } from "lucide-react"
+import { BackButton } from "@/components/shared/back-button"
 import { TocSidebar, type TocItem } from "./toc-sidebar"
 import { FieldRenderer } from "./field-renderer"
 import { formPages, formTitle, oneQuestionSteps } from "@/lib/toc-form-data"
@@ -58,12 +58,7 @@ export function TocFormPrototype() {
     <div className="flex h-svh flex-col bg-background">
       {/* Prototype control bar — not part of the form itself */}
       <div className="flex items-center justify-between border-b border-border bg-secondary/50 px-6 py-2.5">
-        <Link
-          href="/"
-          className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" /> All prototypes
-        </Link>
+        <BackButton label="All prototypes" fallbackHref="/week-1" className="text-xs" iconClassName="h-3.5 w-3.5" />
         <div className="flex items-center rounded-full border border-border bg-background p-0.5">
           <button
             onClick={() => switchMode("one-question")}

@@ -1,6 +1,7 @@
 "use client"
 
 import { X } from "lucide-react"
+import { FieldIcon } from "@/components/shared/field-icon"
 import { FormulaPreviewInput } from "./formula-preview-input"
 import type { FormulaToken } from "@/lib/formula-data"
 
@@ -29,7 +30,8 @@ export function VariableSettingsPanel({ title, fieldId, tokens, onExpand, onClos
 
       <div className="flex-1 overflow-y-auto px-4 py-4">
         <label className="mb-1.5 block text-xs font-medium text-muted-foreground">Field type</label>
-        <div className="mb-4 rounded-[var(--radius)] border border-border bg-secondary/50 px-3 py-2 text-sm">
+        <div className="mb-4 flex items-center gap-2 rounded-[var(--radius)] border border-border bg-secondary/50 px-3 py-2 text-sm">
+          <FieldIcon kind="variable" className="h-3.5 w-3.5" />
           Variable
         </div>
 

@@ -7,9 +7,23 @@ import { FieldsSidebar } from "./fields-sidebar"
 import { EditorCanvas } from "./editor-canvas"
 import { GeneralSettingsPanel } from "./general-settings-panel"
 import { FieldSettingsPanel } from "./field-settings-panel"
+import { AnchoredCallout } from "@/components/shared/anchored-callout"
 import { initialFields, generateMagicIds, type EditorField } from "@/lib/magic-id-data"
 
-export function FormEditorDemo() {
+interface FormEditorDemoProps {
+  /** Shown once, the first time a user opens the editor (PQ-41). */
+  showSaveTooltip?: boolean
+  showShareTooltip?: boolean
+  onDismissSave?: () => void
+  onDismissShare?: () => void
+}
+
+export function FormEditorDemo({
+  showSaveTooltip,
+  showShareTooltip,
+  onDismissSave,
+  onDismissShare,
+}: FormEditorDemoProps = {}) {
   const [fields, setFields] = useState<EditorField[]>(initialFields)
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [justUpdatedIds, setJustUpdatedIds] = useState<Set<string>>(new Set())
@@ -42,8 +56,26 @@ export function FormEditorDemo() {
   }
 
   return (
-    <div className="flex h-svh flex-col bg-background">
-      <TopBar onMagicId={handleMagicId} />
+    <div className="flex h-full flex-col bg-background">
+      <TopBar
+        onMagicId={handleMagicId}
+        shareCallout={
+          showShareTooltip && onDismissShare ? (
+            <AnchoredCallout
+              description="Get your form's link or embed code. Anyone with it can start responding."
+              onDismiss={onDismissShare}
+            />
+          ) : undefined
+        }
+        saveCallout={
+          showSaveTooltip && onDismissSave ? (
+            <AnchoredCallout
+              description="Save keeps every change. Come back anytime, nothing's lost."
+              onDismiss={onDismissSave}
+            />
+          ) : undefined
+        }
+      />
 
       <div className="flex flex-1 overflow-hidden">
         <FieldsSidebar

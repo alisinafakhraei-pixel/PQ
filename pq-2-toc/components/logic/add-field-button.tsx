@@ -15,7 +15,7 @@ export function AddFieldButton({ onClick, variant, label = "Add field" }: AddFie
       <button
         onClick={onClick}
         className="flex items-center gap-1.5 rounded-[var(--radius)] border border-border px-3 py-1.5 text-sm font-medium transition-colors hover:bg-secondary"
-        style={{ color: "hsl(var(--primary))" }}
+        style={{ color: "var(--primary)" }}
       >
         <Plus className="h-4 w-4" />
         New field

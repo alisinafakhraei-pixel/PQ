@@ -1,8 +1,8 @@
 "use client"
 
 import { useRef, useState } from "react"
-import Link from "next/link"
-import { ArrowLeft, AtSign, Bold, Italic, Underline, Link2 as LinkIcon } from "lucide-react"
+import { AtSign, Bold, Italic, Underline, Link2 as LinkIcon } from "lucide-react"
+import { BackButton } from "@/components/shared/back-button"
 import { PipingMenu } from "./piping-menu"
 
 const INITIAL_BODY = `Hi @full_name,
@@ -56,18 +56,13 @@ export function EmailTemplateDemo() {
   return (
     <div className="flex h-svh flex-col bg-background">
       <div className="flex items-center justify-between border-b border-border px-4 py-2.5">
-        <Link
-          href="/"
-          className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <ArrowLeft className="h-4 w-4" /> Back
-        </Link>
+        <BackButton fallbackHref="/week-1" />
         <span className="text-sm font-medium text-muted-foreground">
           Applicant · Referral approved · Next steps
         </span>
         <button
           className="rounded-[var(--radius)] px-4 py-1.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
-          style={{ background: "hsl(var(--primary))" }}
+          style={{ background: "var(--primary)" }}
         >
           Save template
         </button>

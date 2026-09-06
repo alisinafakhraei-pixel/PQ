@@ -51,9 +51,7 @@ export function FormulaSidebar({ variables, selectedVariableId, onSelectVariable
                 isSelected ? "bg-accent" : "hover:bg-secondary"
               )}
             >
-              <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-orange-100 text-[9px] font-bold text-orange-600">
-                x
-              </span>
+              <FieldIcon kind="variable" />
               <span className="min-w-0 flex-1 truncate text-sm">{variable.title}</span>
               <MoreVertical className="h-3.5 w-3.5 shrink-0 text-muted-foreground opacity-0 group-hover:opacity-100" />
             </button>

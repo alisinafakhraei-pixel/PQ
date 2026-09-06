@@ -54,7 +54,7 @@ export function FormulaEditorModal({ tokens, onChange, onClose }: FormulaEditorM
           <button
             onClick={onClose}
             className="rounded-[var(--radius)] px-4 py-1.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
-            style={{ background: "hsl(var(--primary))" }}
+            style={{ background: "var(--primary)" }}
           >
             Done
           </button>
