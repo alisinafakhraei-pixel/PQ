@@ -2,8 +2,9 @@
 
 import type { ReactNode } from "react"
 import { useState } from "react"
-import { ChevronDown, ChevronRight, PanelLeftClose } from "lucide-react"
+import { ChevronDown, ChevronRight, PanelLeftClose, Plus } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
+import { GroupOptionsMenu } from "@/components/pages/group-options-menu"
 import { cn } from "@/lib/utils"
 
 export interface ProjectNavItem {
@@ -22,10 +23,15 @@ interface ProjectViewSidebarProps {
   onSelect?: (label: string) => void
   /** Rendered pinned to the bottom of the sidebar, e.g. a BackButton out of the prototype. */
   footer?: ReactNode
+  /**
+   * When provided, adds "New Page" entry points: a hover "..." menu on each group header
+   * (with "New page" as its top, highlighted item) and a "+ New Page" link at the end of the nav.
+   */
+  onAddPage?: () => void
 }
 
 /** The grouped, collapsible nav sidebar for a Formaloo app/board ("project") view. */
-export function ProjectViewSidebar({ groups, activeLabel, onSelect, footer }: ProjectViewSidebarProps) {
+export function ProjectViewSidebar({ groups, activeLabel, onSelect, footer, onAddPage }: ProjectViewSidebarProps) {
   const [collapsedGroups, setCollapsedGroups] = useState<Set<string>>(new Set())
 
   function toggleGroup(title: string) {
@@ -49,17 +55,20 @@ export function ProjectViewSidebar({ groups, activeLabel, onSelect, footer }: Pr
           const collapsed = collapsedGroups.has(group.title)
           return (
             <div key={group.title} className="mb-3">
-              <button
-                onClick={() => toggleGroup(group.title)}
-                className="flex w-full items-center gap-1 px-2 py-1 text-sm font-semibold text-foreground"
-              >
-                {collapsed ? (
-                  <ChevronRight className="h-3.5 w-3.5 text-muted-foreground" />
-                ) : (
-                  <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
-                )}
-                {group.title}
-              </button>
+              <div className="group/header flex items-center gap-1 px-2 py-1">
+                <button
+                  onClick={() => toggleGroup(group.title)}
+                  className="flex flex-1 items-center gap-1 text-left text-sm font-semibold text-foreground"
+                >
+                  {collapsed ? (
+                    <ChevronRight className="h-3.5 w-3.5 text-muted-foreground" />
+                  ) : (
+                    <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
+                  )}
+                  {group.title}
+                </button>
+                {onAddPage && <GroupOptionsMenu onNewPage={onAddPage} />}
+              </div>
               {!collapsed && (
                 <div className="mt-0.5 space-y-0.5">
                   {group.items.map((item) => {
@@ -85,6 +94,18 @@ export function ProjectViewSidebar({ groups, activeLabel, onSelect, footer }: Pr
             </div>
           )
         })}
+
+        {onAddPage && (
+          <button
+            onClick={onAddPage}
+            className="flex w-full items-center justify-between rounded-[var(--radius-sm)] px-2.5 py-1.5 text-left text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+          >
+            <span className="flex items-center gap-2">
+              <Plus className="h-3.5 w-3.5" /> New Page
+            </span>
+            <ChevronRight className="h-3.5 w-3.5" />
+          </button>
+        )}
       </nav>
 
       {footer && <div className="border-t border-border p-2">{footer}</div>}

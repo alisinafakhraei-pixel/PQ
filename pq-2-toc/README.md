@@ -19,7 +19,7 @@ See [AGENTS.md](./AGENTS.md) for how this repo is organized and — most importa
 
 Each live row's Linear issue has a `Demo: <url>` comment linking to its route.
 
-## Week 2 — local only, not yet pushed
+## Week 2 — live
 
 | Issue | Prototype | Route |
 | --- | --- | --- |
@@ -27,6 +27,10 @@ Each live row's Linear issue has a `Demo: <url>` comment linking to its route.
 | [PQ-39](https://linear.app/formaloo/issue/PQ-39) | Skip the type menu + setup modal for a first project | `/skip-menu-and-modal-land-first-project-directly-in-the-form-editor/39` |
 | [PQ-40](https://linear.app/formaloo/issue/PQ-40) | Land every new form in the editor, not the Responses tab | `/land-all-newly-created-forms-in-the-form-editor-not-the-project-or-responses-view/40` |
 | [PQ-41](https://linear.app/formaloo/issue/PQ-41) | Save + Share tooltips on first editor open | `/add-save-and-share-tooltips-to-the-form-editor/41` |
+| [PQ-42](https://linear.app/formaloo/issue/PQ-42) | Setup modal for New Page (blank / new form / linked form view), two UI treatments (popup + dropdown) | `/add-a-setup-modal-for-new-page-creation-blank-new-form-or-linked-form-view/42` |
+| [PQ-43](https://linear.app/formaloo/issue/PQ-43) | Discoverable "add block" button — always-visible, page-level toolbar, and end-of-content variants | `/make-the-in-page-add-block-button-easier-to-discover/43` |
+
+Each live row's Linear issue has a `Demo: <url>` comment linking to its route.
 
 ## Component previews
 

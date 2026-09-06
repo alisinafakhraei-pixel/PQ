@@ -10,6 +10,8 @@ import { OnboardingDemo } from "@/components/onboarding/onboarding-demo"
 import { Pq39Demo } from "@/components/funnel/pq39-demo"
 import { Pq40Demo } from "@/components/funnel/pq40-demo"
 import { Pq41Demo } from "@/components/funnel/pq41-demo"
+import { Pq42Demo } from "@/components/pages/pq42-demo"
+import { AddBlockVariantsDemo } from "@/components/pages/add-block-variants-demo"
 
 export default async function IssuePrototypePage({
   params,
@@ -63,6 +65,14 @@ export default async function IssuePrototypePage({
 
   if (issue.id === "PQ-41") {
     return <Pq41Demo />
+  }
+
+  if (issue.id === "PQ-42") {
+    return <Pq42Demo />
+  }
+
+  if (issue.id === "PQ-43") {
+    return <AddBlockVariantsDemo />
   }
 
   notFound()

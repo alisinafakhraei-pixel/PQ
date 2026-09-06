@@ -10,9 +10,10 @@ interface EditorCanvasProps {
   selectedId: string | null
   justUpdatedIds: Set<string>
   onSelect: (id: string) => void
+  title?: string
 }
 
-export function EditorCanvas({ fields, selectedId, justUpdatedIds, onSelect }: EditorCanvasProps) {
+export function EditorCanvas({ fields, selectedId, justUpdatedIds, onSelect, title = "Text test" }: EditorCanvasProps) {
   return (
     <div className="flex-1 overflow-y-auto bg-secondary/30 px-10 py-8">
       <div className="mx-auto max-w-2xl rounded-[var(--radius-lg)] border border-border bg-background shadow-sm">
@@ -37,7 +38,7 @@ export function EditorCanvas({ fields, selectedId, justUpdatedIds, onSelect }: E
             </span>
           </div>
 
-          <h1 className="mb-1 text-3xl font-bold">Text test</h1>
+          <h1 className="mb-1 text-3xl font-bold">{title}</h1>
           <p className="mb-8 text-sm text-muted-foreground">Hi there! 👋 Fill out this form to contact us.</p>
 
           <div className="space-y-6">

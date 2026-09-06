@@ -16,6 +16,8 @@ interface FormEditorDemoProps {
   showShareTooltip?: boolean
   onDismissSave?: () => void
   onDismissShare?: () => void
+  /** Overrides the canvas's form title (defaults to "Text test"). */
+  formTitle?: string
 }
 
 export function FormEditorDemo({
@@ -23,6 +25,7 @@ export function FormEditorDemo({
   showShareTooltip,
   onDismissSave,
   onDismissShare,
+  formTitle,
 }: FormEditorDemoProps = {}) {
   const [fields, setFields] = useState<EditorField[]>(initialFields)
   const [selectedId, setSelectedId] = useState<string | null>(null)
@@ -90,6 +93,7 @@ export function FormEditorDemo({
           selectedId={selectedId}
           justUpdatedIds={justUpdatedIds}
           onSelect={handleSelect}
+          title={formTitle}
         />
 
         <aside className="w-80 shrink-0 border-l border-border bg-background">

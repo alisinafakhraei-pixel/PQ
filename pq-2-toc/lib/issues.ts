@@ -96,6 +96,22 @@ const rawIssues: Omit<Issue, "slug">[] = [
     summary:
       "Two dismissible tooltips, shown only the first time a user opens the editor, calling out the Save and Share actions that actually get a form published.",
   },
+  {
+    id: "PQ-42",
+    number: 42,
+    week: 2,
+    title: "Add a setup modal for New Page creation (blank, new form, or linked form view)",
+    summary:
+      "A setup modal asks blank vs. new form vs. linked form responses before a page is created, with a Form/Table/Kanban/Gallery follow-up for linked forms, and unifies both \"add page\" entry points behind it.",
+  },
+  {
+    id: "PQ-43",
+    number: 43,
+    week: 2,
+    title: "Make the in-page \"add block\" button easier to discover",
+    summary:
+      "Three alternatives to the hover-only + for adding a table, form, Kanban, or page, applied to every section of a project page: always-visible (dimmed), a page-level toolbar button, and an end-of-content prompt.",
+  },
 ]
 
 export const issues: Issue[] = rawIssues.map((issue) => ({
