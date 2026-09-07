@@ -12,6 +12,7 @@ import { Pq40Demo } from "@/components/funnel/pq40-demo"
 import { Pq41Demo } from "@/components/funnel/pq41-demo"
 import { Pq42Demo } from "@/components/pages/pq42-demo"
 import { AddBlockVariantsDemo } from "@/components/pages/add-block-variants-demo"
+import { Pq45Demo } from "@/components/logic/pq45-demo"
 
 export default async function IssuePrototypePage({
   params,
@@ -73,6 +74,10 @@ export default async function IssuePrototypePage({
 
   if (issue.id === "PQ-43") {
     return <AddBlockVariantsDemo />
+  }
+
+  if (issue.id === "PQ-45") {
+    return <Pq45Demo />
   }
 
   notFound()

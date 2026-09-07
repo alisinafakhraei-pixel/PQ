@@ -112,6 +112,14 @@ const rawIssues: Omit<Issue, "slug">[] = [
     summary:
       "Three alternatives to the hover-only + for adding a table, form, Kanban, or page, applied to every section of a project page: always-visible (dimmed), a page-level toolbar button, and an end-of-content prompt.",
   },
+  {
+    id: "PQ-45",
+    number: 45,
+    week: 2,
+    title: "Add \"is updated\" operator to advanced logic \"on update\" trigger",
+    summary:
+      "A single \"is updated\" condition replaces the need for one \"is changed to\" condition per possible status value, with a one-click way to simplify an existing redundant set into one.",
+  },
 ]
 
 export const issues: Issue[] = rawIssues.map((issue) => ({
