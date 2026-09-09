@@ -120,6 +120,14 @@ const rawIssues: Omit<Issue, "slug">[] = [
     summary:
       "A single \"is updated\" condition replaces the need for one \"is changed to\" condition per possible status value, with a one-click way to simplify an existing redundant set into one.",
   },
+  {
+    id: "PQ-44",
+    number: 44,
+    week: 2,
+    title: "Highlight the duplicated fields when duplicate logic is detected",
+    summary:
+      "A clickable yellow badge marks each duplicate rule box, and the \"Logic rules are duplicated\" error names both fields — clicking a name, the badge, or the error itself scrolls straight to the conflict.",
+  },
 ]
 
 export const issues: Issue[] = rawIssues.map((issue) => ({
