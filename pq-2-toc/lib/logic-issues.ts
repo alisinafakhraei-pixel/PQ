@@ -1,38 +1,42 @@
 import type { FieldKind } from "./field-types"
 
-export interface DuplicateRuleContent {
+export type FieldIssue = "duplicate" | "incomplete"
+
+export interface LogicRuleContent {
   ifLabel: string
   ifFieldKind: FieldKind
   ifFieldNumber: number
   operatorLabel: string
-  thenVerb: string
-  thenLabel: string
-  thenFieldKind: FieldKind
-  thenFieldNumber: number
+  /** Left undefined for an incomplete rule — no "Then" action chosen yet. */
+  thenVerb?: string
+  thenLabel?: string
+  thenFieldKind?: FieldKind
+  thenFieldNumber?: number
 }
 
-export interface DuplicateField {
+export interface LogicIssueField {
   id: string
   number: number
   kind: FieldKind
   title: string
-  /** Undefined when the field has no rule yet. */
-  rule?: DuplicateRuleContent
-  /** The other field id this rule is an exact duplicate of, when it is one. */
+  rule?: LogicRuleContent
+  issue?: FieldIssue
+  /** Only for issue "duplicate" — the id of the other field with the exact same rule. */
   duplicateOf?: string
 }
 
 /**
- * Two different fields ("What's your name?" and "Phone Number") ended up with the exact
- * same rule (If Email is answered -> Show Email) — a realistic, easy-to-miss duplicate.
- * "Email" has a different rule (not a duplicate); "Long Text" has none yet.
+ * Two different fields ("What's your name?" and "Phone Number") ended up with the exact same
+ * rule (a duplicate). "Company Name" has a rule with no "Then" action chosen yet (incomplete).
+ * "Email" has a different, complete rule — not flagged. "Long Text" has no rule at all yet.
  */
-export const DUPLICATE_DEMO_FIELDS: DuplicateField[] = [
+export const LOGIC_ISSUE_FIELDS: LogicIssueField[] = [
   {
     id: "f1",
     number: 1,
     kind: "short_text",
     title: "What's your name?",
+    issue: "duplicate",
     duplicateOf: "f4",
     rule: {
       ifLabel: "Email",
@@ -67,6 +71,7 @@ export const DUPLICATE_DEMO_FIELDS: DuplicateField[] = [
     number: 4,
     kind: "phone",
     title: "Phone Number",
+    issue: "duplicate",
     duplicateOf: "f1",
     rule: {
       ifLabel: "Email",
@@ -77,6 +82,19 @@ export const DUPLICATE_DEMO_FIELDS: DuplicateField[] = [
       thenLabel: "Email",
       thenFieldKind: "email",
       thenFieldNumber: 3,
+    },
+  },
+  {
+    id: "f5",
+    number: 5,
+    kind: "short_text",
+    title: "Company Name",
+    issue: "incomplete",
+    rule: {
+      ifLabel: "Company Name",
+      ifFieldKind: "short_text",
+      ifFieldNumber: 5,
+      operatorLabel: "is answered",
     },
   },
 ]

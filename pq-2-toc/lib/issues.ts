@@ -126,7 +126,7 @@ const rawIssues: Omit<Issue, "slug">[] = [
     week: 2,
     title: "Highlight the duplicated fields when duplicate logic is detected",
     summary:
-      "A clickable yellow badge marks each duplicate rule box, and the \"Logic rules are duplicated\" error names both fields — clicking a name, the badge, or the error itself scrolls straight to the conflict.",
+      "A yellow notice + badge for duplicated rules and a red notice + badge for incomplete ones, each naming the affected field(s) — clicking a name, a badge, or the notice itself scrolls straight to it.",
   },
 ]
 
