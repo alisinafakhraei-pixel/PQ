@@ -16,7 +16,11 @@ export function OnUpdateTab({ operators, initialConditions }: OnUpdateTabProps) 
 
   function handleOperatorChange(id: string, operator: ConditionOperator) {
     setConditions((current) =>
-      current.map((c) => (c.id === id ? { ...c, operator, value: operator === "is-changed-to" ? c.value : undefined } : c))
+      current.map((c) =>
+        c.id === id
+          ? { ...c, operator, value: operator === "is-answered" || operator === "is-not-answered" ? undefined : c.value }
+          : c
+      )
     )
   }
 

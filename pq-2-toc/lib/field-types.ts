@@ -42,6 +42,13 @@ export type FieldKind =
   // Legacy alias kept for the earlier PQ-1 demo data.
   | "suggestion"
 
+/** Field kinds where a respondent picks from a fixed set of options. */
+const CHOICE_FIELD_KINDS: FieldKind[] = ["single_choice", "multiple_choice", "dropdown", "multiple_choice_dropdown", "yes_no"]
+
+export function isChoiceField(kind: FieldKind): boolean {
+  return CHOICE_FIELD_KINDS.includes(kind)
+}
+
 export const fieldKindLabels: Record<FieldKind, string> = {
   short_text: "Short Text",
   long_text: "Long Text",

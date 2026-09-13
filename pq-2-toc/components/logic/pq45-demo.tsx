@@ -13,23 +13,25 @@ import { ON_UPDATE_OPERATORS, ON_UPDATE_OPERATORS_BEFORE } from "@/lib/logic-ope
 type Mode = "before" | "after"
 
 const BEFORE_CONDITIONS: OnUpdateCondition[] = [
-  { id: "c1", fieldNumber: 10, fieldLabel: "Nurse's Approval Status", operator: "is-changed-to", value: "B. Approved" },
-  { id: "c2", fieldNumber: 10, fieldLabel: "Nurse's Approval Status", operator: "is-changed-to", value: "C. Rejected" },
-  { id: "c3", fieldNumber: 11, fieldLabel: "Appointment Status", operator: "is-changed-to", value: "A. Scheduled" },
-  { id: "c4", fieldNumber: 11, fieldLabel: "Appointment Status", operator: "is-changed-to", value: "B. Confirmed" },
-  { id: "c5", fieldNumber: 11, fieldLabel: "Appointment Status", operator: "is-changed-to", value: "C. Completed" },
-  { id: "c6", fieldNumber: 11, fieldLabel: "Appointment Status", operator: "is-changed-to", value: "D. Cancelled" },
-  { id: "c7", fieldNumber: 11, fieldLabel: "Appointment Status", operator: "is-changed-to", value: "E. No Show" },
+  { id: "c1", fieldNumber: 10, fieldLabel: "Nurse's Approval Status", fieldKind: "single_choice", operator: "is-changed-to", value: "B. Approved" },
+  { id: "c2", fieldNumber: 10, fieldLabel: "Nurse's Approval Status", fieldKind: "single_choice", operator: "is-changed-to", value: "C. Rejected" },
+  { id: "c3", fieldNumber: 11, fieldLabel: "Appointment Status", fieldKind: "single_choice", operator: "is-changed-to", value: "A. Scheduled" },
+  { id: "c4", fieldNumber: 11, fieldLabel: "Appointment Status", fieldKind: "single_choice", operator: "is-changed-to", value: "B. Confirmed" },
+  { id: "c5", fieldNumber: 11, fieldLabel: "Appointment Status", fieldKind: "single_choice", operator: "is-changed-to", value: "C. Completed" },
+  { id: "c6", fieldNumber: 11, fieldLabel: "Appointment Status", fieldKind: "single_choice", operator: "is-changed-to", value: "D. Cancelled" },
+  { id: "c7", fieldNumber: 11, fieldLabel: "Appointment Status", fieldKind: "single_choice", operator: "is-changed-to", value: "E. No Show" },
 ]
 
 const AFTER_CONDITIONS: OnUpdateCondition[] = [
-  { id: "c1", fieldNumber: 11, fieldLabel: "Appointment Status", operator: "is-updated" },
+  { id: "c1", fieldNumber: 11, fieldLabel: "Appointment Status", fieldKind: "single_choice", operator: "is-changed", value: "A. Scheduled" },
+  { id: "c2", fieldNumber: 10, fieldLabel: "Nurse's Approval Status", fieldKind: "single_choice", operator: "is-changed" },
+  { id: "c3", fieldNumber: 12, fieldLabel: "Patient Email", fieldKind: "email", operator: "is-changed" },
 ]
 
 /**
- * PQ-45 — the "On Update" trigger's condition operator only offers "is changed to", so
- * triggering logic on any change to a status field means one condition per possible value.
- * Adds an "is updated" operator so a single condition covers every value change.
+ * PQ-45 — per Farokh's follow-up, "is changed to" and "is updated" collapse into one "is
+ * changed" operator. Every field can use it bare ("Field is changed"); a choice-based field
+ * additionally gets an optional "to <option>" segment to narrow it to one specific value.
  */
 export function Pq45Demo() {
   const [mode, setMode] = useState<Mode>("before")
@@ -43,7 +45,7 @@ export function Pq45Demo() {
         <BackButton label="All prototypes" fallbackHref="/week-2" className="text-xs" iconClassName="h-3.5 w-3.5" />
         <div className="flex items-center gap-2">
           <span className="text-xs font-medium text-muted-foreground">
-            The &ldquo;is changed to&rdquo; operator dropdown
+            The &ldquo;On Update&rdquo; condition operator
           </span>
           <SegmentedToggle
             options={[
