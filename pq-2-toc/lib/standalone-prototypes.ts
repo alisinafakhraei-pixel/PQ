@@ -19,4 +19,12 @@ export const standalonePrototypes: StandalonePrototype[] = [
     week: 2,
     href: "/workspace-subdomain",
   },
+  {
+    id: "project-pin",
+    title: "Where should the \"pin this project\" icon live?",
+    summary:
+      "Four placement ideas for pinning a project from inside it, without going back to the home sidebar list — next to the title, a row below it, in the breadcrumb, or the top-right icon cluster.",
+    week: 2,
+    href: "/project-pin",
+  },
 ]
