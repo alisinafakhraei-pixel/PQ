@@ -24,8 +24,18 @@ export function OnUpdateTab({ operators, initialConditions }: OnUpdateTabProps) 
     )
   }
 
+  function handleValueChange(id: string, value: string | undefined) {
+    setConditions((current) => current.map((c) => (c.id === id ? { ...c, value } : c)))
+  }
+
   return (
     <div className="mx-auto max-w-3xl px-8 py-8">
+      <p className="mb-4 text-sm text-muted-foreground">
+        <strong className="font-semibold text-foreground">is changed</strong> works on its own for all other
+        fields. For <strong className="font-semibold text-foreground">choice-based fields</strong>, an optional
+        pill next to it narrows the condition to one specific option.
+      </p>
+
       <div className="rounded-[var(--radius-lg)] border border-border bg-background p-5">
         <div className="space-y-2">
           {conditions.map((condition, i) => (
@@ -34,6 +44,7 @@ export function OnUpdateTab({ operators, initialConditions }: OnUpdateTabProps) 
                 condition={condition}
                 operators={operators}
                 onOperatorChange={(operator) => handleOperatorChange(condition.id, operator)}
+                onValueChange={(value) => handleValueChange(condition.id, value)}
               />
               {i < conditions.length - 1 && (
                 <div className="py-1.5">
