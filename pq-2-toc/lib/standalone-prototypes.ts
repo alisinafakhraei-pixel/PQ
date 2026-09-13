@@ -10,4 +10,13 @@ export interface StandalonePrototype {
   href: string
 }
 
-export const standalonePrototypes: StandalonePrototype[] = []
+export const standalonePrototypes: StandalonePrototype[] = [
+  {
+    id: "workspace-subdomain",
+    title: "Where should “Edit workspace subdomain” live in Share?",
+    summary:
+      "Four placement ideas for a new subdomain-edit entry point in the form and project Share sidebars — next to Edit URL, a dedicated row, inline on the link, or behind a header ⋯ menu.",
+    week: 2,
+    href: "/workspace-subdomain",
+  },
+]
