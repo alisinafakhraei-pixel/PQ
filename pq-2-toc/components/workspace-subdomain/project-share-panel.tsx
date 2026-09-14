@@ -22,9 +22,12 @@ function Tab({ label, active }: { label: string; active?: boolean }) {
 }
 
 /** Recreates the right-hand "Share" drawer on a Project page → Publish tab. */
-export function ProjectSharePanel({ variant, subdomain, onEditSubdomain }: SharePanelProps) {
+export function ProjectSharePanel({ variant, subdomain, isAdmin, onEditSubdomain }: SharePanelProps) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [sidebarByDefault, setSidebarByDefault] = useState(true)
+  // Per Farokh's review of Option C: admin-only. There's no "Edit URL" action to gate on here
+  // (unlike the form panel), so this is admin-gated only.
+  const showInlineHint = variant === "inline-url" && isAdmin
 
   return (
     <div className="w-full max-w-md rounded-[var(--radius-lg)] border border-border bg-card p-5 shadow-lg">
@@ -85,7 +88,7 @@ export function ProjectSharePanel({ variant, subdomain, onEditSubdomain }: Share
       </div>
 
       <div className="mt-1.5 flex items-center justify-between rounded-[var(--radius)] border border-border bg-background px-3 py-2">
-        {variant === "inline-url" ? (
+        {showInlineHint ? (
           <p className="min-w-0 truncate text-sm">
             <span className="text-muted-foreground">https://</span>
             <button
@@ -105,9 +108,14 @@ export function ProjectSharePanel({ variant, subdomain, onEditSubdomain }: Share
           <Copy className="h-3.5 w-3.5" /> Copy link
         </button>
       </div>
-      {variant === "inline-url" && (
+      {showInlineHint && (
         <p className="mt-1 text-[11px] text-muted-foreground">
           <span className="font-medium">{subdomain}</span> is your workspace subdomain — click it to edit.
+        </p>
+      )}
+      {variant === "inline-url" && !isAdmin && (
+        <p className="mt-1 text-[11px] italic text-muted-foreground/70">
+          (Admin-only hint, not shown to this viewer.)
         </p>
       )}
 

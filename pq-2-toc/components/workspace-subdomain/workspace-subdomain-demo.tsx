@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { Trophy } from "lucide-react"
 import { BackButton } from "@/components/shared/back-button"
 import { SegmentedToggle } from "@/components/shared/segmented-toggle"
 import { FormSharePanel } from "./form-share-panel"
@@ -9,17 +10,23 @@ import { EditSubdomainDialog } from "./edit-subdomain-dialog"
 import type { SubdomainVariant } from "./types"
 
 type ShareContext = "form" | "project"
+type ViewerRole = "admin" | "member"
 
 const CONTEXTS: { value: ShareContext; label: string }[] = [
   { value: "form", label: "Form share" },
   { value: "project", label: "Project share" },
 ]
 
+const ROLES: { value: ViewerRole; label: string }[] = [
+  { value: "admin", label: "Viewing as: Workspace Admin" },
+  { value: "member", label: "Viewing as: Member" },
+]
+
 const VARIANTS: { value: SubdomainVariant; label: string }[] = [
   { value: "today", label: "Today" },
   { value: "inline-link", label: "A — Next to Edit URL" },
   { value: "dedicated-row", label: "B — Dedicated row" },
-  { value: "inline-url", label: "C — Inline on the link" },
+  { value: "inline-url", label: "C — Inline on the link ✓ Winner" },
   { value: "header-menu", label: "D — Header ⋯ menu" },
 ]
 
@@ -31,7 +38,7 @@ const VARIANT_NOTES: Record<SubdomainVariant, string> = {
   "dedicated-row":
     "Gives the subdomain its own labeled row, styled like the existing “Customize link (custom domain)” block right above it — the two now read as a pair: “workspace subdomain” vs “full custom domain,” both ways to change the same URL at a different scope. Clearest mental model, but adds vertical space to an already fairly tall panel.",
   "inline-url":
-    "Makes the “formalooteam” segment inside the URL itself clickable (underlined), with a one-line caption underneath explaining what it is. No new buttons at all, but relies on someone noticing a piece of static-looking text is actually interactive — the caption is doing a lot of the work.",
+    "Makes the “formalooteam” segment inside the URL itself clickable (underlined), with a one-line caption underneath explaining what it is. Per Farokh's review: on the form panel, this only reveals once “Edit URL” is clicked (hidden otherwise), and on both panels it's shown to Workspace Admins only — use the toggle above to see it as a Member.",
   "header-menu":
     "Tucks it behind a ⋯ overflow menu in the panel header, alongside room for other “share settings” later. Keeps the body of the panel untouched, but is the least discoverable option — someone has to already suspect this setting exists to go looking for it.",
 }
@@ -39,7 +46,8 @@ const VARIANT_NOTES: Record<SubdomainVariant, string> = {
 /** Standalone exploration: where should an "Edit workspace subdomain" entry point live in the Share UI? */
 export function WorkspaceSubdomainDemo() {
   const [context, setContext] = useState<ShareContext>("form")
-  const [variant, setVariant] = useState<SubdomainVariant>("today")
+  const [variant, setVariant] = useState<SubdomainVariant>("inline-url")
+  const [role, setRole] = useState<ViewerRole>("admin")
   const [dialogOpen, setDialogOpen] = useState(false)
   const [subdomain, setSubdomain] = useState("formalooteam")
 
@@ -54,10 +62,22 @@ export function WorkspaceSubdomainDemo() {
           the form and project share screens, then flip through four placement ideas.
         </p>
 
+        <div className="mt-4 flex items-center gap-2 rounded-[var(--radius)] border border-emerald-300 bg-emerald-50 px-3 py-2 text-sm text-emerald-800">
+          <Trophy className="h-4 w-4 shrink-0" />
+          <span>
+            <strong className="font-semibold">Decision:</strong> Farokh picked Option C — Inline on the link,
+            with two conditions: only reveal it after “Edit URL” is clicked, and only for Workspace Admins.
+          </span>
+        </div>
+
         <div className="mt-6 flex flex-wrap items-center gap-3">
           <SegmentedToggle options={CONTEXTS} value={context} onChange={setContext} />
           <span className="h-4 w-px bg-border" />
           <SegmentedToggle options={VARIANTS} value={variant} onChange={setVariant} className="flex-wrap" />
+        </div>
+
+        <div className="mt-3">
+          <SegmentedToggle options={ROLES} value={role} onChange={setRole} />
         </div>
 
         <div className="mt-3 rounded-[var(--radius)] border border-border bg-secondary/40 p-3 text-xs text-muted-foreground">
@@ -69,12 +89,14 @@ export function WorkspaceSubdomainDemo() {
             <FormSharePanel
               variant={variant}
               subdomain={subdomain}
+              isAdmin={role === "admin"}
               onEditSubdomain={() => setDialogOpen(true)}
             />
           ) : (
             <ProjectSharePanel
               variant={variant}
               subdomain={subdomain}
+              isAdmin={role === "admin"}
               onEditSubdomain={() => setDialogOpen(true)}
             />
           )}

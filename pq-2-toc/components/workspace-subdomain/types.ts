@@ -8,5 +8,7 @@ export type SubdomainVariant =
 export interface SharePanelProps {
   variant: SubdomainVariant
   subdomain: string
+  /** Per Farokh's review: the Option C hint is Workspace-Admin-only. */
+  isAdmin: boolean
   onEditSubdomain: () => void
 }

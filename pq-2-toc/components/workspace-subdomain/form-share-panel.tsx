@@ -23,8 +23,11 @@ function Tab({ icon: Icon, label, active }: { icon: typeof Link2; label: string;
 }
 
 /** Recreates the "Share form" → Publish tab screen (the standalone /kbxhc5 share page). */
-export function FormSharePanel({ variant, subdomain, onEditSubdomain }: SharePanelProps) {
+export function FormSharePanel({ variant, subdomain, isAdmin, onEditSubdomain }: SharePanelProps) {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [editUrlClicked, setEditUrlClicked] = useState(false)
+  // Per Farokh's review of Option C: hidden until "Edit URL" is clicked, and admin-only.
+  const showInlineHint = variant === "inline-url" && editUrlClicked && isAdmin
 
   return (
     <div className="w-full max-w-2xl rounded-[var(--radius-lg)] border border-border bg-card p-6 shadow-sm">
@@ -70,7 +73,7 @@ export function FormSharePanel({ variant, subdomain, onEditSubdomain }: SharePan
       <div className="mt-4 flex items-center justify-between">
         <label className="text-xs font-medium text-muted-foreground">Your form link</label>
         <div className="flex items-center gap-3 text-xs font-medium text-primary">
-          <button className="flex items-center gap-1 hover:underline">
+          <button onClick={() => setEditUrlClicked(true)} className="flex items-center gap-1 hover:underline">
             <Pencil className="h-3 w-3" /> Edit URL
           </button>
           {variant === "inline-link" && (
@@ -82,7 +85,7 @@ export function FormSharePanel({ variant, subdomain, onEditSubdomain }: SharePan
       </div>
 
       <div className="mt-1.5 flex items-center justify-between rounded-[var(--radius)] border border-border bg-background px-3 py-2">
-        {variant === "inline-url" ? (
+        {showInlineHint ? (
           <p className="min-w-0 truncate text-sm">
             <span className="text-muted-foreground">https://</span>
             <button
@@ -106,9 +109,14 @@ export function FormSharePanel({ variant, subdomain, onEditSubdomain }: SharePan
           <Copy className="h-3.5 w-3.5" /> Copy link
         </button>
       </div>
-      {variant === "inline-url" && (
+      {showInlineHint && (
         <p className="mt-1 text-[11px] text-muted-foreground">
           <span className="font-medium">{subdomain}</span> is your workspace subdomain — click it to edit.
+        </p>
+      )}
+      {variant === "inline-url" && !isAdmin && (
+        <p className="mt-1 text-[11px] italic text-muted-foreground/70">
+          (Admin-only hint, not shown to this viewer.)
         </p>
       )}
 
