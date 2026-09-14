@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { Trophy } from "lucide-react"
 import { BackButton } from "@/components/shared/back-button"
 import { SegmentedToggle } from "@/components/shared/segmented-toggle"
 import { ProjectShell } from "./project-shell"
@@ -10,7 +11,7 @@ const VARIANTS: { value: PinVariant; label: string }[] = [
   { value: "today", label: "Today" },
   { value: "title-row", label: "A — Next to title" },
   { value: "below-title", label: "B — Row below title" },
-  { value: "breadcrumb", label: "C — In the breadcrumb" },
+  { value: "breadcrumb", label: "C — In the breadcrumb ✓ Winner" },
   { value: "top-right", label: "D — Top-right icon cluster" },
 ]
 
@@ -29,7 +30,7 @@ const VARIANT_NOTES: Record<PinVariant, string> = {
 
 /** Standalone exploration: where should a "pin this project" icon live while you're inside the project? */
 export function ProjectPinDemo() {
-  const [variant, setVariant] = useState<PinVariant>("today")
+  const [variant, setVariant] = useState<PinVariant>("breadcrumb")
   const [pinned, setPinned] = useState(false)
 
   return (
@@ -42,6 +43,13 @@ export function ProjectPinDemo() {
           Where should a pin icon live so people can pin the project they&apos;re currently viewing, without going
           back to the home sidebar list? Flip through four placement ideas.
         </p>
+
+        <div className="mt-4 flex items-center gap-2 rounded-[var(--radius)] border border-emerald-300 bg-emerald-50 px-3 py-2 text-sm text-emerald-800">
+          <Trophy className="h-4 w-4 shrink-0" />
+          <span>
+            <strong className="font-semibold">Decision:</strong> Farokh picked Option C — In the breadcrumb.
+          </span>
+        </div>
 
         <div className="mt-6">
           <SegmentedToggle options={VARIANTS} value={variant} onChange={setVariant} className="flex-wrap" />
