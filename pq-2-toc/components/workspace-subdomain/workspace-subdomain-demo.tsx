@@ -1,12 +1,12 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Trophy } from "lucide-react"
 import { BackButton } from "@/components/shared/back-button"
 import { SegmentedToggle } from "@/components/shared/segmented-toggle"
 import { FormSharePanel } from "./form-share-panel"
 import { ProjectSharePanel } from "./project-share-panel"
-import { EditSubdomainDialog } from "./edit-subdomain-dialog"
 import type { SubdomainVariant } from "./types"
 
 type ShareContext = "form" | "project"
@@ -45,11 +45,12 @@ const VARIANT_NOTES: Record<SubdomainVariant, string> = {
 
 /** Standalone exploration: where should an "Edit workspace subdomain" entry point live in the Share UI? */
 export function WorkspaceSubdomainDemo() {
+  const router = useRouter()
   const [context, setContext] = useState<ShareContext>("form")
   const [variant, setVariant] = useState<SubdomainVariant>("inline-url")
   const [role, setRole] = useState<ViewerRole>("admin")
-  const [dialogOpen, setDialogOpen] = useState(false)
-  const [subdomain, setSubdomain] = useState("formalooteam")
+  const [subdomain] = useState("formalooteam")
+  const goToWorkspaceSettings = () => router.push("/workspace-subdomain/settings")
 
   return (
     <div className="min-h-svh bg-background">
@@ -90,29 +91,18 @@ export function WorkspaceSubdomainDemo() {
               variant={variant}
               subdomain={subdomain}
               isAdmin={role === "admin"}
-              onEditSubdomain={() => setDialogOpen(true)}
+              onEditSubdomain={goToWorkspaceSettings}
             />
           ) : (
             <ProjectSharePanel
               variant={variant}
               subdomain={subdomain}
               isAdmin={role === "admin"}
-              onEditSubdomain={() => setDialogOpen(true)}
+              onEditSubdomain={goToWorkspaceSettings}
             />
           )}
         </div>
       </div>
-
-      {dialogOpen && (
-        <EditSubdomainDialog
-          currentSubdomain={subdomain}
-          onClose={() => setDialogOpen(false)}
-          onSave={(next) => {
-            setSubdomain(next)
-            setDialogOpen(false)
-          }}
-        />
-      )}
     </div>
   )
 }
