@@ -27,4 +27,12 @@ export const standalonePrototypes: StandalonePrototype[] = [
     week: 2,
     href: "/project-pin",
   },
+  {
+    id: "identifier-fields",
+    title: "Identifier field picker — better hierarchy & typography",
+    summary:
+      "Restyles the \"Select identifier fields\" combobox to show field type and number the same way the answer-piping menu already does, instead of a flat text row.",
+    week: 2,
+    href: "/identifier-fields",
+  },
 ]
