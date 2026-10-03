@@ -14,6 +14,7 @@ import { Pq42Demo } from "@/components/pages/pq42-demo"
 import { AddBlockVariantsDemo } from "@/components/pages/add-block-variants-demo"
 import { Pq45Demo } from "@/components/logic/pq45-demo"
 import { Pq44Demo } from "@/components/logic/pq44-demo"
+import { Pq82Demo } from "@/components/pages/pq82-demo"
 
 export default async function IssuePrototypePage({
   params,
@@ -83,6 +84,10 @@ export default async function IssuePrototypePage({
 
   if (issue.id === "PQ-44") {
     return <Pq44Demo />
+  }
+
+  if (issue.id === "PQ-82") {
+    return <Pq82Demo />
   }
 
   notFound()

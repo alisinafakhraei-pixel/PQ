@@ -27,6 +27,7 @@ import {
   User as UserIcon,
 } from "lucide-react"
 import { ProjectViewSidebar, type ProjectNavGroup } from "./project-view-sidebar"
+import { ShortcutToolbar, type ShortcutAction } from "./shortcut-toolbar"
 import { cn } from "@/lib/utils"
 
 const DEFAULT_NAV_GROUPS: ProjectNavGroup[] = [
@@ -100,6 +101,14 @@ interface ProjectViewProps {
   aboveContent?: ReactNode
   /** Wraps a named content block ("tips" | "form-card" | "table") — e.g. an "add block" affordance exploration. Identity by default. */
   renderBlockWrapper?: (key: "tips" | "form-card" | "table", node: ReactNode) => ReactNode
+  /**
+   * When provided, renders the PQ-82 collapsible shortcut toolbar (New page / table / Kanban /
+   * gallery / AI analyze) while in Edit mode — same visibility rule as the Insert menu: hidden
+   * in View mode, and for read-only roles that never pass this prop.
+   */
+  onShortcutAction?: (action: ShortcutAction) => void
+  /** True when the current nav item isn't a page (e.g. a form or responses view) — disables the toolbar's data-block buttons. */
+  shortcutBlocksDisabled?: boolean
 }
 
 const identityBlockWrapper = (_key: "tips" | "form-card" | "table", node: ReactNode) => node
@@ -126,6 +135,8 @@ export function ProjectView({
   addPageMenu,
   aboveContent,
   renderBlockWrapper = identityBlockWrapper,
+  onShortcutAction,
+  shortcutBlocksDisabled = false,
 }: ProjectViewProps) {
   const [view, setView] = useState<"view" | "edit">("view")
 
@@ -133,7 +144,7 @@ export function ProjectView({
     <div className="flex h-full bg-background">
       <ProjectViewSidebar groups={navGroups} activeLabel={activeNavLabel} footer={sidebarFooter} onAddPage={onAddPage} />
 
-      <div className="flex flex-1 flex-col overflow-hidden">
+      <div className="relative flex flex-1 flex-col overflow-hidden">
         <div className="flex items-center justify-between border-b border-border px-5 py-2.5">
           <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
             <Home className="h-4 w-4" />
@@ -342,6 +353,10 @@ export function ProjectView({
             {afterTable}
           </div>
         </div>
+
+        {view === "edit" && onShortcutAction && (
+          <ShortcutToolbar onAction={onShortcutAction} disableBlockButtons={shortcutBlocksDisabled} />
+        )}
       </div>
     </div>
   )

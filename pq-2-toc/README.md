@@ -31,6 +31,7 @@ Each live row's Linear issue has a `Demo: <url>` comment linking to its route.
 | [PQ-43](https://linear.app/formaloo/issue/PQ-43) | Discoverable "add block" button — always-visible, page-level toolbar, and end-of-content variants | `/make-the-in-page-add-block-button-easier-to-discover/43` |
 | [PQ-45](https://linear.app/formaloo/issue/PQ-45) | "is updated" operator on the Advanced Logic "On Update" trigger | `/add-is-updated-operator-to-advanced-logic-on-update-trigger/45` |
 | [PQ-44](https://linear.app/formaloo/issue/PQ-44) | Duplicate (yellow) and incomplete (red) logic notices + badges, click a field name to jump to it | `/highlight-the-duplicated-fields-when-duplicate-logic-is-detected/44` |
+| [PQ-82](https://linear.app/formaloo/issue/PQ-82) | Collapsible shortcut toolbar in project edit mode (New page / table / Kanban / gallery / AI analyze) | `/add-a-collapsible-shortcut-toolbar-in-project-edit-mode-for-new-page-new-table-new-kanban-new-gallery-and-new-ai-analyze/82` |
 
 Each live row's Linear issue has a `Demo: <url>` comment linking to its route.
 

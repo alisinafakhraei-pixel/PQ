@@ -128,6 +128,15 @@ const rawIssues: Omit<Issue, "slug">[] = [
     summary:
       "A yellow notice + badge for duplicated rules and a red notice + badge for incomplete ones, each naming the affected field(s) — clicking a name, a badge, or the notice itself scrolls straight to it.",
   },
+  {
+    id: "PQ-82",
+    number: 82,
+    week: 2,
+    title:
+      "Add a collapsible shortcut toolbar in project edit mode for New page, New table, New Kanban, New gallery, and New AI analyze",
+    summary:
+      "A one-click shortcut toolbar in project edit mode for the five most common create actions, collapsible down to a single toggle and remembered per user across refreshes and pages.",
+  },
 ]
 
 export const issues: Issue[] = rawIssues.map((issue) => ({
