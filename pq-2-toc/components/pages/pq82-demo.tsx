@@ -19,7 +19,6 @@ import {
 import type { LucideIcon } from "lucide-react"
 import { LoadingScreen } from "@/components/shared/loading-screen"
 import { BackButton } from "@/components/shared/back-button"
-import { SegmentedToggle } from "@/components/shared/segmented-toggle"
 import { ProjectView } from "@/components/shared/project-view"
 import type { ProjectNavGroup } from "@/components/shared/project-view-sidebar"
 import type { ShortcutAction } from "@/components/shared/shortcut-toolbar"
@@ -29,7 +28,6 @@ import type { NewPageChoice } from "./new-page-setup-steps"
 import { BlankPageView } from "./blank-page-view"
 
 type Stage = "home" | "page-modal" | "page-creating" | "page-result"
-type NavContext = "page" | "responses"
 type BlockAction = Exclude<ShortcutAction, "page">
 
 const NAV_GROUPS: ProjectNavGroup[] = [
@@ -84,13 +82,10 @@ function navGroupsWithCreatedPage(label: string): ProjectNavGroup[] {
  * create actions don't have to go through the sidebar "+ New Page" or the Insert menu each
  * time. Lives on `ProjectView` itself (`onShortcutAction` + `shortcutBlocksDisabled`), gated
  * to Edit mode — toggle to Edit (top right) to see it appear. "New page" reuses the real
- * PQ-42 setup flow; the data-block buttons simulate an Insert-menu-style block drop. The
- * "On responses view" toggle simulates being off a page, disabling the data-block buttons
- * with a tooltip while "New page" stays active, per spec.
+ * PQ-42 setup flow; the data-block buttons simulate an Insert-menu-style block drop.
  */
 export function Pq82Demo() {
   const [stage, setStage] = useState<Stage>("home")
-  const [navContext, setNavContext] = useState<NavContext>("page")
   const [choice, setChoice] = useState<NewPageChoice | null>(null)
   const [insertedBlocks, setInsertedBlocks] = useState<{ id: string; action: BlockAction }[]>([])
   const [toast, setToast] = useState<string | null>(null)
@@ -195,19 +190,9 @@ export function Pq82Demo() {
     <div className="relative flex h-svh flex-col bg-background">
       <div className="flex items-center justify-between border-b border-border bg-secondary/50 px-6 py-2.5">
         <BackButton label="All prototypes" fallbackHref="/week-2" className="text-xs" iconClassName="h-3.5 w-3.5" />
-        <div className="flex items-center gap-3">
-          <span className="hidden text-xs text-muted-foreground sm:inline">
-            Switch to <strong className="text-foreground">Edit</strong> (top right) to reveal the toolbar
-          </span>
-          <SegmentedToggle
-            options={[
-              { value: "page", label: "On a page" },
-              { value: "responses", label: "On responses view" },
-            ]}
-            value={navContext}
-            onChange={setNavContext}
-          />
-        </div>
+        <span className="hidden text-xs text-muted-foreground sm:inline">
+          Switch to <strong className="text-foreground">Edit</strong> (top right) to reveal the toolbar
+        </span>
       </div>
 
       {toast && (
@@ -222,12 +207,9 @@ export function Pq82Demo() {
       <div className="flex-1 overflow-hidden">
         <ProjectView
           navGroups={NAV_GROUPS}
-          activeNavLabel={navContext === "responses" ? "Charts & insights" : "All records"}
-          breadcrumb={navContext === "responses" ? ["2. Test templates", "Charts & insights"] : undefined}
-          pageTitle={navContext === "responses" ? "Charts & insights" : undefined}
+          activeNavLabel="All records"
           sidebarFooter={sidebarFooter}
           onShortcutAction={handleShortcutAction}
-          shortcutBlocksDisabled={navContext === "responses"}
           afterTable={afterTable}
         />
       </div>
